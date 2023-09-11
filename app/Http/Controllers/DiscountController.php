@@ -42,8 +42,8 @@ class DiscountController extends Controller
         $discounts = $query->paginate(10);
 
         $data = [
-            'brands'    => Brand::active()->orderBy('display_order')->get(),
-            'regions'   => Region::orderBy('display_order')->get(),
+            'brands'    => Brand::active()->get(),
+            'regions'   => Region::all(),
             'discounts' => $discounts,
         ];
 
@@ -154,9 +154,9 @@ class DiscountController extends Controller
     private function getRelatedData()
     {
         return [
-            'accessTypes'          => AccessType::orderBy('display_order')->get(),
-            'brands'               => Brand::active()->orderBy('display_order')->get(),
-            'regions'              => Region::orderBy('display_order')->get(),
+            'accessTypes'          => AccessType::all(),
+            'brands'               => Brand::active()->get(),
+            'regions'              => Region::all(),
             'discountRangeCounter' => self::DISCOUNT_RANGE_COUNTER,
         ];
     }

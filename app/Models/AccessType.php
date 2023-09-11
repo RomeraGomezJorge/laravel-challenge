@@ -35,4 +35,14 @@ class AccessType extends Model
     {
         return $this->hasMany(Discount::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order_by_display_order', function (Builder $builder) {
+            $builder->orderBy('display_order');
+        });
+    }
+
 }

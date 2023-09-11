@@ -25,4 +25,13 @@ class Brand extends Model
     {
         return $query->whereActive(1);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order_by_display_order', function (Builder $builder) {
+            $builder->orderBy('display_order');
+        });
+    }
 }
