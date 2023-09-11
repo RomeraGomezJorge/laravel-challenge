@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DiscountStoreBaseRequest;
-use App\Http\Requests\DiscountUpdateBaseRequest;
+use App\Http\Requests\DiscountStoreRequest;
+use App\Http\Requests\DiscountUpdateRequest;
 use App\Models\AccessType;
 use App\Models\Brand;
 use App\Models\Discount;
@@ -85,11 +85,11 @@ class DiscountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param DiscountStoreBaseRequest $request
+     * @param DiscountStoreRequest $request
      *
      * @return RedirectResponse
      */
-    public function store(DiscountStoreBaseRequest $request)
+    public function store(DiscountStoreRequest $request)
     {
         $data     = $request->validated();
         $discount = Discount::create($data);
@@ -115,12 +115,12 @@ class DiscountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param DiscountUpdateBaseRequest $request
+     * @param DiscountUpdateRequest $request
      * @param Discount $discount
      *
      * @return RedirectResponse
      */
-    public function update(DiscountUpdateBaseRequest $request, Discount $discount)
+    public function update(DiscountUpdateRequest $request, Discount $discount)
     {
         $data = $request->validated();
 

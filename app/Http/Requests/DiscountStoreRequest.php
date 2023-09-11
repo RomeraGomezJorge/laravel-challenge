@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class DiscountStoreBaseRequest extends DiscountBaseRequest
+class DiscountStoreRequest extends DiscountBaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

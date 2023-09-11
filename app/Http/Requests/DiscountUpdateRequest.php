@@ -5,7 +5,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Validation\Rule;
 
-    class DiscountUpdateBaseRequest extends DiscountBaseRequest
+    class DiscountUpdateRequest extends DiscountBaseRequest
     {
         /**
          * Determine if the user is authorized to make this request.
