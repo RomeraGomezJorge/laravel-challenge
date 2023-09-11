@@ -1,14 +1,5 @@
 @php
-    function generateSortUrl($column) {
-        $direction = (Request::has('direction') && Request::get('direction') == 'ASC') ? 'DESC' : 'ASC';
-        $queryParams = array_merge(Request::except(['order_by', 'direction']), ['order_by' => $column, 'direction' => $direction]);
-        return route('discount.index') . '?' . http_build_query($queryParams);
-    }
-    function generateSorDirectionIcon() {
-        return (Request::get('direction') == 'ASC')
-                ? '<svg class="h-2 w-2 text-gray-500 inline-block"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5.07 19H19a2 2 0 0 0 1.75 -2.75L13.75 4a2 2 0 0 0 -3.5 0L3.25 16.25a2 2 0 0 0 1.75 2.75" /></svg>'
-                : '<svg class="h-2 w-2 text-gray-500 inline-block"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(180deg);">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5.07 19H19a2 2 0 0 0 1.75 -2.75L13.75 4a2 2 0 0 0 -3.5 0L3.25 16.25a2 2 0 0 0 1.75 2.75" /></svg>';
-    }
+    use App\Helpers\BladeHelper;
 @endphp
 <x-app-layout>
     <x-slot name="header">
@@ -149,29 +140,29 @@
 
                         <tr>
                             <th class="w-24">
-                                <a href="{{generateSortUrl('brand_name')}}">
-                                    {{ __('discount.brand') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('brand_name')}}">
+                                    {{ __('discount.brand') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
 
                             </th>
                             <th class="w-20">
-                                <a href="{{generateSortUrl('region_code')}}">
-                                    {{ __('discount.region') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('region_code')}}">
+                                    {{ __('discount.region') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
                             </th>
                             <th class="w-32">
-                                <a href="{{generateSortUrl('name')}}">
-                                    {{ __('discount.rule_name_label') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('name')}}">
+                                    {{ __('discount.rule_name_label') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
                             </th>
                             <th class="w-24">
-                                <a href="{{generateSortUrl('access_type_name')}}">
-                                    {{ __('discount.access_type') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('access_type_name')}}">
+                                    {{ __('discount.access_type') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
                             </th>
                             <th>
-                                <a href="{{generateSortUrl('active')}}">
-                                    {{ __('discount.active') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('active')}}">
+                                    {{ __('discount.active') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
                             </th>
                             <th class="w-24">
@@ -184,13 +175,13 @@
                                 {{ __('discount.gsa_discount') }}
                             </th>
                             <th class="w-50" >
-                                <a href="{{generateSortUrl('start_date')}}">
-                                    {{ __('discount.promotion_period') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('start_date')}}">
+                                    {{ __('discount.promotion_period') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
                             </th>
                             <th class="w-24">
-                                <a href="{{generateSortUrl('priority')}}">
-                                    {{ __('discount.priority') }} {!! generateSorDirectionIcon() !!}
+                                <a href="{{BladeHelper::generateSortUrl('priority')}}">
+                                    {{ __('discount.priority') }} {!! BladeHelper::generateSorDirectionIcon() !!}
                                 </a>
                             </th>
                             <th></th>
