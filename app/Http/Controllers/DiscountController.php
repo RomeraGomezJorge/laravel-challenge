@@ -52,23 +52,20 @@ class DiscountController extends Controller
 
     private function applyFilters(Request $request, $query)
     {
-        if ($request->filled('brand')) {
-            $query->where('brand_id', $request->input('brand'));
-        }
-
-        if ($request->filled('region')) {
-            $query->where('region_id', $request->input('region'));
-        }
-
-        if ($request->filled('discount_name')) {
-            $query->where('discounts.name', 'like', '%' . $request->input('discount_name') . '%');
-        }
-
-        if ($request->filled('awd_bcd_code')) {
-            $query->whereHas('discount_range', function ($subQuery) use ($request) {
-                $subQuery->where('code', $request->input('awd_bcd_code'));
+        $query->when($request->filled('brand'), function ($q) use ($request) {
+            return $q->where('brand_id', $request->input('brand'));
+        })
+            ->when($request->filled('region'), function ($q) use ($request) {
+                return $q->where('region_id', $request->input('region'));
+            })
+            ->when($request->filled('discount_name'), function ($q) use ($request) {
+                return $q->where('discounts.name', 'like', '%' . $request->input('discount_name') . '%');
+            })
+            ->when($request->filled('awd_bcd_code'), function ($q) use ($request) {
+                return $q->whereHas('discount_range', function ($subQuery) use ($request) {
+                    $subQuery->where('code', $request->input('awd_bcd_code'));
+                });
             });
-        }
     }
 
     /**

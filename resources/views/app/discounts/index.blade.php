@@ -48,7 +48,7 @@
                                     {{ __('discount.brand') }}
                                 </div>
                                 <div>
-                                    <select class="rounded border-gray-300 w-full" name="brand_id">
+                                    <select class="rounded border-gray-300 w-full" name="brand">
                                         <option disabled selected>{{ __('main.select') }}...</option>
                                         @foreach($brands as $brand)
                                             <option
