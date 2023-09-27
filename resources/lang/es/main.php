@@ -13,5 +13,7 @@ return [
     'edit_success'           => 'Datos actualizados correctamente',
     'confirm'                => 'Confirmar',
     'confirm_delete'         => 'Confirmar eliminación',
-    'confirm_delete_message' => '¿Estás seguro de que deseas eliminar este registro?'
+    'confirm_delete_message' => '¿Estás seguro de que deseas eliminar este registro?',
+    'no-entries-found'       => 'No se encontraron resultados'
+
 ];

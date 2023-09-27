@@ -13,6 +13,7 @@ return [
     'edit_success'           => 'Data edited successfully',
     'confirm'                => 'Confirm',
     'confirm_delete'         => 'Confirm Deletion',
-    'confirm_delete_message' => 'Are you sure you want to delete this record?'
+    'confirm_delete_message' => 'Are you sure you want to delete this record?',
+    'no-entries-found'       => 'No entries found'
 
 ];
