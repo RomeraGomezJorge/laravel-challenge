@@ -12,12 +12,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class DiscountController extends Controller
 {
     const DISCOUNT_RANGE_COUNTER = 3;
 
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $query = Discount::select(
             'discounts.*',
@@ -47,7 +48,7 @@ class DiscountController extends Controller
             'discounts' => $discounts,
         ];
 
-        return response()->view('app.discounts.index', $data);
+        return view('app.discounts.index', $data);
     }
 
     private function applyFilters(Request $request, $query)
@@ -70,54 +71,39 @@ class DiscountController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
-    public function create()
+    public function create(): View
     {
         $data = $this->getRelatedData();
-        return response()->view('app.discounts.create', $data);
+        return view('app.discounts.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param DiscountStoreRequest $request
-     *
-     * @return RedirectResponse
      */
-    public function store(DiscountStoreRequest $request)
+    public function store(DiscountStoreRequest $request): RedirectResponse
     {
         $data     = $request->validated();
         $discount = Discount::create($data);
         $discount->discount_range()->createMany($data['discount_ranges']);
 
-        return Redirect::route('discount.index')->with('message', trans('main.store_success'));
+        return redirect()->route('discount.index')->with('message', trans('main.store_success'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
      */
-    public function edit($id)
+    public function edit(Discount $discount)
     {
-        $data             = $this->getRelatedData();
-        $data['discount'] = Discount::with(['brand', 'region', 'access_type', 'discount_range'])->find($id);
-        return response()->view('app.discounts.edit', $data);
+        $data = $this->getRelatedData();
+        $data['discount'] = $discount; // Ya tienes el objeto Discount
+        return view('app.discounts.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param DiscountUpdateRequest $request
-     * @param Discount $discount
-     *
-     * @return RedirectResponse
      */
-    public function update(DiscountUpdateRequest $request, Discount $discount)
+    public function update(DiscountUpdateRequest $request, Discount $discount):RedirectResponse
     {
         $data = $request->validated();
 
@@ -133,25 +119,19 @@ class DiscountController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param Discount $discount
-     *
-     * @return RedirectResponse
      */
-    public function destroy(Discount $discount)
+    public function destroy(Discount $discount): View
     {
         $discount->discount_range()->delete();
         $discount->delete();
 
-        return response()->redirectToRoute('discount.index')->with('message', trans('main.delete_success'));
+        return view('discount.index')->with('message', trans('main.delete_success'));
     }
 
     /**
      * Retrieve related data for use in create and edit methods.
-     *
-     * @return array
      */
-    private function getRelatedData()
+    private function getRelatedData(): array
     {
         return [
             'accessTypes'          => AccessType::all(),
