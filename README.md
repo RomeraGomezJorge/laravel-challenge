@@ -5,7 +5,8 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes en 
 
 - PHP >= 7.3
 - Composer
-- Un servidor web (por ejemplo, Apache o Nginx)
+- Npm 
+- GIT
 - MySQL o un sistema de gestión de bases de datos compatible
 
 ## Pasos para Levantar el Proyecto
@@ -77,11 +78,19 @@ Sigue estos pasos cuidadosamente para configurar y ejecutar tu proyecto Laravel 
     sudo chmod -R ug+rwx storage bootstrap/
     ```
 
-9. **Acceder al Sitio Web**
+9. **Iniciar un servidor de desarrollo local.**
+    ```
+    php artisan serve
+   ```
+10. **Generar estilos y scripts de desarrollo**   
+    ```
+    npm run dev
+    ```   
+11. **Acceder al Sitio Web**
+Tu proyecto Laravel 8 ahora está configurado y en funcionamiento correctamente. Puedes acceder al sitio web utilizando tu navegador web. Inicia sesión con las siguientes credenciales:
 
-    Tu proyecto Laravel 8 ahora está configurado y en funcionamiento correctamente. Puedes acceder al sitio web utilizando tu navegador web. Inicia sesión con las siguientes credenciales:
-   - Usuario: admin@example.com
-   - Contraseña: password
+- Usuario: admin@example.com
+- Contraseña: password
 
 
    
