@@ -10,8 +10,6 @@ use App\Models\Discount;
 use App\Models\Region;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class DiscountController extends Controller
@@ -21,11 +19,16 @@ class DiscountController extends Controller
     public function index(Request $request): View
     {
         $query = Discount::select(
-            'discounts.*',
-            'brands.name as brand_name',
+            'discounts.id',
+            'discounts.name',
+            'discounts.active',
+            'discounts.priority',
+            'discounts.start_date',
+            'discounts.end_date',
             'brands.active as brand_active',
+            'brands.name as brand_name',
             'access_types.name as access_type_name',
-            'regions.code as region_code'
+            'regions.code as region_code',
         )
             ->with('discount_range')
             ->join('brands', 'discounts.brand_id', '=', 'brands.id')
@@ -43,8 +46,8 @@ class DiscountController extends Controller
         $discounts = $query->paginate(10);
 
         $data = [
-            'brands'    => Brand::active()->get(),
-            'regions'   => Region::all(),
+            'brands'    => Brand::select(['id','name'])->active()->get(),
+            'regions'   => Region::all(['id','name']),
             'discounts' => $discounts,
         ];
 
@@ -134,9 +137,9 @@ class DiscountController extends Controller
     private function getRelatedData(): array
     {
         return [
-            'accessTypes'          => AccessType::all(),
-            'brands'               => Brand::active()->get(),
-            'regions'              => Region::all(),
+            'accessTypes'          => AccessType::all(['code','name']),
+            'brands'               => Brand::active(['id','name'])->get(),
+            'regions'              => Region::all(['id','name']),
             'discountRangeCounter' => self::DISCOUNT_RANGE_COUNTER,
         ];
     }
