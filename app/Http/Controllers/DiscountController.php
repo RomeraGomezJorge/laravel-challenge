@@ -10,6 +10,7 @@ use App\Models\Discount;
 use App\Models\Region;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DiscountController extends Controller
@@ -86,9 +87,11 @@ class DiscountController extends Controller
      */
     public function store(DiscountStoreRequest $request): RedirectResponse
     {
-        $data     = $request->validated();
-        $discount = Discount::create($data);
-        $discount->discount_range()->createMany($data['discount_ranges']);
+        DB::transaction(function() use ($request) {
+            $data = $request->validated();
+            $discount = Discount::create($data);
+            $discount->discount_range()->createMany($data['discount_ranges']);
+        });
 
         return redirect()->route('discount.index')->with('message', trans('main.store_success'));
     }
@@ -108,14 +111,12 @@ class DiscountController extends Controller
      */
     public function update(DiscountUpdateRequest $request, Discount $discount):RedirectResponse
     {
-        $data = $request->validated();
-
-        $discount->update($data);
-
-        if (isset($data['discount_ranges'])) {
+        DB::transaction(function() use ($request,$discount) {
+            $data = $request->validated();
+            $discount->update($data);
             $discount->discount_range()->delete();
             $discount->discount_range()->createMany($data['discount_ranges']);
-        }
+        });
 
         return redirect()->route('discount.index')->with('message', trans('main.edit_success'));
     }
@@ -125,8 +126,10 @@ class DiscountController extends Controller
      */
     public function destroy(Discount $discount): View
     {
-        $discount->discount_range()->delete();
-        $discount->delete();
+        DB::transaction(function () use ($discount) {
+            $discount->discount_range()->delete();
+            $discount->delete();
+        });
 
         return view('discount.index')->with('message', trans('main.delete_success'));
     }
