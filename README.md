@@ -1,6 +1,22 @@
-# Guía para Levantar el Proyecto en Laravel 8
+## Gestor de Descuentos para Plataforma de Alquiler de Vehículos
+Este reto se enfoca en la creación de un Gestor de Descuentos (ABM) para una plataforma de alquiler de vehículos. Permite configurar descuentos según el tipo de acceso, marca de rentadora y región de alquiler, facilitando la administración efectiva de promociones. Incluye funciones de autenticación de usuarios, formularios de alta y edición, listados detallados con filtros y soporte multilenguaje.
 
-## Requisitos Previos
+## Carpeta de Requisitos del Reto ( 01-requisitos-del-reto )
+En esta carpeta, encontrarás todos los elementos necesarios para comprender y abordar el desafío propuesto.
+
+### Contenido:
+1. <b>Requisitos en PDF :</b>
+    Consulta el archivo requisitos.pdf para obtener detalles sobre los requisitos del desafío. Este documento proporciona la información esencial que necesita para completar la tarea.
+
+2. <b>Archivos de SQL:</b>
+    Los archivos database_ddl.sql y database_data.sql contienen las consultas SQL utilizadas para crear las migraciones necesarias.
+    
+3. <b>Imágenes de la Estructura del Front-end:</b>
+    Las imágenes form.png y list.png ofrecen visualizaciones detalladas de la estructura requerida para el front-end. Úsalas como referencia para garantizar una implementación precisa.
+
+## Guía para Levantar el Proyecto en Laravel 8
+
+### Requisitos Previos
 Antes de comenzar, asegúrate de tener instalados los siguientes componentes en tu entorno de desarrollo:
 
 - PHP >= 7.3
@@ -9,7 +25,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes en 
 - GIT
 - MySQL o un sistema de gestión de bases de datos compatible
 
-## Pasos para Levantar el Proyecto
+### Pasos para Levantar el Proyecto
 Sigue estos pasos cuidadosamente para configurar y ejecutar tu proyecto Laravel 8 de manera eficiente.
 
 1. **Clonar el Repositorio**
