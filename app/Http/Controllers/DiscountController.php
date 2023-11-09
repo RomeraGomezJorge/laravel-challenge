@@ -10,6 +10,7 @@ use App\Models\Discount;
 use App\Models\Region;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -46,11 +47,8 @@ class DiscountController extends Controller
 
         $discounts = $query->paginate(10);
 
-        $data = [
-            'brands'    => Brand::select(['id','name'])->active()->get(),
-            'regions'   => Region::all(['id','name']),
-            'discounts' => $discounts,
-        ];
+        $data = $this->getRelatedData();
+        $data['discounts'] = $discounts;
 
         return view('app.discounts.index', $data);
     }
@@ -78,8 +76,7 @@ class DiscountController extends Controller
      */
     public function create(): View
     {
-        $data = $this->getRelatedData();
-        return view('app.discounts.create', $data);
+        return view('app.discounts.create', $this->getRelatedData());
     }
 
     /**
@@ -88,7 +85,7 @@ class DiscountController extends Controller
     public function store(DiscountStoreRequest $request): RedirectResponse
     {
         DB::transaction(function() use ($request) {
-            $data = $request->validated();
+            $data     = $request->validated();
             $discount = Discount::create($data);
             $discount->discount_range()->createMany($data['discount_ranges']);
         });
@@ -101,8 +98,8 @@ class DiscountController extends Controller
      */
     public function edit(Discount $discount)
     {
-        $data = $this->getRelatedData();
-        $data['discount'] = $discount; // Ya tienes el objeto Discount
+        $data             = $this->getRelatedData();
+        $data['discount'] = $discount;
         return view('app.discounts.edit', $data);
     }
 
@@ -135,14 +132,29 @@ class DiscountController extends Controller
     }
 
     /**
-     * Retrieve related data for use in create and edit methods.
+     * Retrieve related data for use in index, create and edit methods.
+     * Caching static data that doesn't change frequently.
      */
     private function getRelatedData(): array
     {
+        $hour = 60 * 60;
+
+        $accessType = Cache::remember('accessTypes', 24 * $hour, function () {
+            return AccessType::all(['code','name']);
+        });
+
+        $brands = Cache::remember('brands', 24 * $hour, function () {
+            return Brand::active(['id','name'])->get();
+        });
+
+        $regions = Cache::remember('regions', 24 * $hour, function () {
+            return Region::all(['id','name']);
+        });
+
         return [
-            'accessTypes'          => AccessType::all(['code','name']),
-            'brands'               => Brand::active(['id','name'])->get(),
-            'regions'              => Region::all(['id','name']),
+            'accessTypes'          => $accessType,
+            'brands'               => $brands,
+            'regions'              => $regions,
             'discountRangeCounter' => self::DISCOUNT_RANGE_COUNTER,
         ];
     }
