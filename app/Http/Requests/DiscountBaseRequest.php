@@ -70,13 +70,13 @@ class DiscountBaseRequest extends FormRequest
             "$prefix.code"      => [
                 'sometimes',
                 'nullable',
-                "required_if:$prefix.discount,null",
+                "required_without:$prefix.discount",
                 'alpha_num',
             ],
             "$prefix.discount"  => [
                 'sometimes',
                 'nullable',
-                "required_if:$prefix.code,null",
+                "required_without:$prefix.code",
                 'numeric',
                 'min:0.1',
             ],
