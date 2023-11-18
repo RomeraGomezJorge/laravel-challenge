@@ -15,7 +15,7 @@
     */
 
 Route::view('/', 'auth.login');
-Route::resource('discount', DiscountController::class)
+Route::resource('discounts', DiscountController::class)
     ->middleware(['auth'])
     ->except(['show']);
 

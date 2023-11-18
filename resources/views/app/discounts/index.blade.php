@@ -15,7 +15,7 @@
                 </div>
                 <div class="w-1/3">
                     <div class="flex gap-2 w-fit ml-auto">
-                        <a href="{{ route('discount.create') }}">
+                        <a href="{{ route('discounts.create') }}">
                             <div class="font-bold p-2 rounded bg-sky-800 text-neutral-200 w-fit self-center">
                                 {{ __('discount.new_discount') }}
                             </div>
@@ -121,7 +121,7 @@
                                         type="submit"
                                         value="{{ __('discount.search_filter') }}"
                                     />
-                                    <a href="{{ route('discount.index') }}">
+                                    <a href="{{ route('discounts.index') }}">
                                         <div
                                             class="cursor-pointer p-2 px-4 bg-neutral-200 text-neutral-700 border border-neutral-400 rounded">
                                             {{ __('discount.reset_filter') }}
@@ -233,7 +233,7 @@
                                 </td>
                                 <td class="px-1 py-3 ">
                                     <a class="cursor-pointer px-4 py-2 bg-blue-600 text-neutral-100 rounded"
-                                       href="{{ route('discount.edit', ['discount' => $discount->id]) }}"
+                                       href="{{ route('discounts.edit', ['discount' => $discount->id]) }}"
                                     >
                                         {{ __('main.edit') }}
                                     </a>
@@ -247,7 +247,7 @@
                                     </button>
                                     <x-modal-delete-confirmation
                                         :id="$discount->id"
-                                        :formAction="route('discount.destroy', ['discount' => $discount->id])"
+                                        :formAction="route('discounts.destroy', ['discount' => $discount->id])"
                                     />
                                 </td>
                             </tr>

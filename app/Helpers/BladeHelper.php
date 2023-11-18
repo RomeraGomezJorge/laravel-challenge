@@ -13,7 +13,7 @@
                 Request::except(['order_by', 'direction']),
                 ['order_by' => $column, 'direction' => $direction]
             );
-            return route('discount.index') . '?' . http_build_query($queryParams);
+            return route('discounts.index') . '?' . http_build_query($queryParams);
         }
 
         public static function generateSorDirectionIcon(): string

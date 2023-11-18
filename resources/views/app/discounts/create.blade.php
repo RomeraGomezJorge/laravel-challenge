@@ -23,7 +23,7 @@
         @endif
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg pl-10 pr-4 py-2">
-                <form action="{{ route('discount.store') }}" method="POST">
+                <form action="{{ route('discounts.store') }}" method="POST">
                     @csrf
                     <x-discount-form
                         :brands="$brands"

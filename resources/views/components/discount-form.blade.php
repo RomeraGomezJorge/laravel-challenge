@@ -155,7 +155,7 @@
         >
             <div class="p-5 w-full max-w-full">
                 <div class="text-sky-800 font-bold w-full">
-                    {{ __('discount.application_period') }} {{$discountRangeIndex}}
+                    {{ __('discount.application_period') }} {{$discountRangeIndex + 1}}
                 </div>
                 <div class="flex space-x-2 mt-2 flex-row">
                     <div class="w-1/2 flex-col">
@@ -280,7 +280,7 @@
 <div class="mb-12">
     <div class="flex justify-end gap-4">
         <a
-            href="{{ route('discount.index') }}">
+            href="{{ route('discounts.index') }}">
             <div
                 class="font-bold bg-gray-200 border border-gray-300 rounded py-2 px-4 cursor-default">
                 {{ __('main.cancel') }}

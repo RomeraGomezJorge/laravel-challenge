@@ -148,7 +148,7 @@
         @endif
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg pl-10 pr-4 py-2">
-                <form action="{{ route('discount.update', ['discount' => $discount->id]) }}" method="POST">
+                <form action="{{ route('discounts.update', ['discount' => $discount->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <input type="hidden" value="{{ $discount->id }}" name="id">

@@ -90,7 +90,7 @@ class DiscountController extends Controller
             $discount->discount_range()->createMany($data['discount_ranges']);
         });
 
-        return redirect()->route('discount.index')->with('message', trans('main.store_success'));
+        return redirect()->route('discounts.index')->with('message', trans('main.store_success'));
     }
 
     /**
@@ -115,7 +115,7 @@ class DiscountController extends Controller
             $discount->discount_range()->createMany($data['discount_ranges']);
         });
 
-        return redirect()->route('discount.index')->with('message', trans('main.edit_success'));
+        return redirect()->route('discounts.index')->with('message', trans('main.edit_success'));
     }
 
     /**
